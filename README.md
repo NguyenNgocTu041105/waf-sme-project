@@ -1,4 +1,4 @@
-﻿# CMU-CS 376: Open-Source WAF Deployment for SMEs
+# CMU-CS 376: Open-Source WAF Deployment for SMEs
 **Course:** CMU-CS 376 CIS: Elements of Network Security  
 **Institution:** Duy Tan University (DTU)  
 **Student:** Nguyễn Ngọc Tú (ID: 30219251322)  
@@ -27,10 +27,11 @@ The target vulnerable web application is **OWASP Juice Shop** (Node.js).
 ---
 
 ## 📂 Repository Contents
-* `custom-exclusion.conf`: Rule exclusion configuration resolving False Positives for `/socket.io/` and `/rest/continue-code/`.
-* `waf-commands.md`: Complete Docker deployment and container management CLI commands.
-* `waf_load_test.ps1`: Automated PowerShell load simulation and latency benchmark script.
-* `waf_audit_log_sample.txt`: Extracted real ModSecurity audit log demonstrating active 403 blocks for XSS (Rule 941100) and SQLi (Rule 942100).
+* `README.md`: System architectural documentation and project guide.
+* `custom-exclusion.conf`: ModSecurity rule exclusion configuration resolving False Positives for `/socket.io/` (Rule 920420).
+* `docker-commands.md`: Complete Docker deployment, port mapping, and container management commands.
+* `test-scripts.ps1`: Automated PowerShell attack simulation harness (XSS, SQLi) and DoS load benchmarking scripts.
+* `waf_log.txt`: Authentic ModSecurity audit logs demonstrating real-time HTTP 403 blocks (Rules 941100 and 942100).
 
 ---
 
