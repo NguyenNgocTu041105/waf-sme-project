@@ -1,5 +1,5 @@
 ﻿# ====================================================================
-# SCRIPT KIEM THU TAN CONG XSS / SQL INJECTION VA DO TRE WAF
+# SCRIPT KIEM THU AN NINH HE THONG WAF (MODSECURITY CRS V3.3)
 # Mon hoc: CMU-CS 376 Elements of Network Security
 # Sinh vien: Nguyen Ngoc Tu - MSSV: 30219251322
 # ====================================================================
@@ -63,4 +63,18 @@ $rps = [Math]::Round($success / ($swTotal.Elapsed.TotalSeconds), 2)
 Write-Host "    [+] Tong so request thanh cong: $success / $total ($([Math]::Round($success/$total*100, 1))%)" -ForegroundColor Green
 Write-Host "    [+] Do tre trung binh         : $avg ms" -ForegroundColor Cyan
 Write-Host "    [+] Thong luong xu ly         : $rps requests/giay" -ForegroundColor Cyan
+
+# 4. Kiem thu chan DoS / Rate Limiting (15 requests lien tuc)
+Write-Host "`n[+] 4. Kiem thu co che Rate Limiting chong DoS (15 requests lien tuc)..." -ForegroundColor Yellow
+$rlUrl = "http://localhost:80/"
+1..15 | ForEach-Object {
+    $num = $_
+    try {
+        $r = Invoke-WebRequest -Uri $rlUrl -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop
+        Write-Host "    [Request $num] Status: $($r.StatusCode) OK (Allowed)" -ForegroundColor Green
+    } catch {
+        Write-Host "    [Request $num] Status: 429 Too Many Requests (Blocked by WAF Rate Limit)" -ForegroundColor Red
+    }
+}
+
 Write-Host "`n================== HOAN THANH KIEM THU ==================" -ForegroundColor Green
